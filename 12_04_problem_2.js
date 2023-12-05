@@ -243,23 +243,22 @@ let addTicketsWon = function(cards) {
 }
 
 let sumCardsWon = function(cards) {
-  let ticketsWon = [];
-  let winCount = 0;
   for (card in cards) {
-    console.log(card);
-    ticketsWon = ticketsWon.concat(cards[card]['ticketsWon']);
-    while (ticketsWon.includes(+card)) {
-      let index = ticketsWon.indexOf(+card);
-      ticketsWon = ticketsWon.concat(cards[card]['ticketsWon']);
-      winCount += 1;
-      ticketsWon.splice(index, 1);
+    console.log(+cards[card]['count']);
+    for (let i = 0; i < cards[card]['count']; i++) {
+      cards[card]['ticketsWon'].forEach(ticketNo => cards[ticketNo]['count'] += 1);
     }
   }
 
-  return (winCount + 223);
+  let sum = 0;
+  for (i in input) {
+    sum += input[i]['count'];
+  }
+
+  return sum
 }
 
 addWinCount(input)
 addTicketsWon(input)
 
-console.log(input)
+console.log(sumCardsWon(input));
