@@ -1,4 +1,4 @@
-let input = [{time: 55, distance: 246}, {time: 82, distance: 1441}, {time: 64, distance: 1012}, {time: 90, distance: 1111}]
+let input = [{time: 55826490, distance: 246144110121111}]
 
 let productOfWinningCombos = function(timeDistanceCombos) {
   return product(winningComboCount(timeDistanceCombo))
