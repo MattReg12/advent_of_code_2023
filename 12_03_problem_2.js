@@ -145,7 +145,7 @@ let test = '...317..........214.....................................751.........
            '........476..@...162.855................$....288...821..............107.....-...........290......../..301.........=...........135..*........'
 
 const BOX_INDICES = [1, 140, 142, -1, -140, -142];
-const CAPTURE_INDICES = [[1, 2, 3], [-1, -2, -3], [138, 139, 140, 141, 142, 143, 144], [-144, -143, -142, -141, -140, -139, -138]];
+const CAPTURE_INDICES = [[-3, -2, -1, 1, 2, 3], [138, 139, 140, 141, 142, 143, 144], [-144, -143, -142, -141, -140, -139, -138]];
 
 let prodPartNumbers = function(input) {
   let partsNumbers = [...input.matchAll(/\*/g)];
@@ -154,11 +154,11 @@ let prodPartNumbers = function(input) {
     if (surroundedNumCount(match) === 2) {
       let nums = surroundingNums(match)
       console.log(nums)
-      // sum += (nums[0] * nums[1]);
+      sum += (nums[0] * nums[1]);
     }
   })
 
-  // return sum
+  return sum
 }
 
 let surroundedNumCount = function(matchData) {
@@ -191,13 +191,20 @@ let surroundingNums = function(matchData) {
     })
   })
 
-  return stringNums.map(stringArr => stringArr.join(''));
+  stringNums = stringNums.map(stringArr => stringArr.join(''));
+  stringNums = stringNums.filter((str, i) => {
+      return (str.slice(2,5).match(/\d/))
+  })
+
+  return stringNums.map(str => {
+    return str.match(/\d+/g)
+  }).flat().map(str => +str)
 }
 
-let product = function(stringArr) {
-  return stringArr.reduce((sum, string)) {
+// let product = function(stringArr) {
+//   return stringArr.reduce((sum, string)) {
 
-  }
-}
+//   }
+// }
 
-console.log(prodPartNumbers(test));
+console.log(prodPartNumbers(input));
