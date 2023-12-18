@@ -139,13 +139,21 @@ let input = '...317..........214.....................................751........
             '........................153.........-........@.....*...661..*833......*.775.....-...........................40....665...............701.....\n'+
             '..890....252......................544........809..425..............925......................................................................'
 
-let test = '...317..........214.....................................751.................................630...479..205....41.993............416.........\n'+
-           '...*....813........%....572........%...629.154......518....*....365..................-.......*.......#.....................422...........661\n'+
-           '269.......*...58...........=......264.....*..........*......937.-...........235...303.........848..............195.....154*.........144.-...\n'+
-           '........476..@...162.855................$....288...821..............107.....-...........290......../..301.........=...........135..*........'
+// let input = '467..114..\n' +
+// '...*......\n' +
+// '..35..633.\n' +
+// '......#...\n' +
+// '617*......\n' +
+// '.....+.58.\n' +
+// '..592.....\n' +
+// '......755.\n' +
+// '...$.*....\n' +
+// '.664.598..'
 
+// const BOX_INDICES = [1, 10, 12, -1, -10, -12];
+// const CAPTURE_INDICES = [[-3, -2, -1, 0, 1, 2, 3], [8, 9, 10, 11, 12, 13, 14], [-14, -13, -12, -11, -10, -9, -8]];
 const BOX_INDICES = [1, 140, 142, -1, -140, -142];
-const CAPTURE_INDICES = [[-3, -2, -1, 1, 2, 3], [138, 139, 140, 141, 142, 143, 144], [-144, -143, -142, -141, -140, -139, -138]];
+const CAPTURE_INDICES = [[-3, -2, -1, 0, 1, 2, 3], [138, 139, 140, 141, 142, 143, 144], [-144, -143, -142, -141, -140, -139, -138]];
 
 let prodPartNumbers = function(input) {
   let partsNumbers = [...input.matchAll(/\*/g)];
@@ -153,7 +161,6 @@ let prodPartNumbers = function(input) {
   partsNumbers.forEach(match => {
     if (surroundedNumCount(match) === 2) {
       let nums = surroundingNums(match)
-      console.log(nums)
       sum += (nums[0] * nums[1]);
     }
   })
@@ -178,7 +185,7 @@ let surroundedNumCount = function(matchData) {
   if (/\d{3}/.test(string.slice(i - 142, i - 139))) {
     count -= 1
   }
-
+  console.log(count)
   return count;
 }
 
@@ -194,7 +201,26 @@ let surroundingNums = function(matchData) {
   stringNums = stringNums.map(stringArr => stringArr.join(''));
   stringNums = stringNums.filter((str, i) => {
       return (str.slice(2,5).match(/\d/))
+    })
+
+
+  stringNums = stringNums.map(str => {
+    // console.log(str)
+    if (str[4] === '.') {
+      str = str.slice(0, 4);
+    }
+    if (str[5] === '.') {
+      str = str.slice(0, 5);
+    }
+    if (str[2] === '.') {
+      str = str.slice(2);
+    }
+    if (str[1] === '.') {
+      str = str.slice(1);
+    }
+    return str;
   })
+  // console.log(stringNums)
 
   return stringNums.map(str => {
     return str.match(/\d+/g)
@@ -208,3 +234,7 @@ let surroundingNums = function(matchData) {
 // }
 
 console.log(prodPartNumbers(input));
+
+/* manually added these: 7.  588 = 4116
+935
+7 969 == 6783 */
